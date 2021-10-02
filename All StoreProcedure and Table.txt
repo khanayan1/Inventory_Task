@@ -1,0 +1,99 @@
+--This file having all the stored procedure which is use in application---
+
+-------- delete-----------
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[delete_data]    Script Date: 02-10-2021 22:44:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[delete_data] @id int 
+ as 
+ Delete from Inventory where Product_id = @id
+
+-----------Return all data-------------
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[getinventory]    Script Date: 02-10-2021 22:45:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[getinventory]
+as
+select * from Inventory
+go;
+
+-----------------Return Data by id----------------
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[getinventory_byid]    Script Date: 02-10-2021 22:46:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER proc [dbo].[getinventory_byid] @id int 
+as
+select * from Inventory where Product_id= @id
+
+-------------insert data into table-------------------
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[Insert_data]    Script Date: 02-10-2021 22:48:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[Insert_data] @id int,@name varchar(20),@info varchar(50),@md date,@ed date,@price int
+as 
+insert into  Inventory values(@id,@name,@info,@md,@ed,@price)
+
+-------------update table data-------------------------
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[Update_data]    Script Date: 02-10-2021 22:49:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[Update_data]  @id int,@name varchar(20),@info varchar(50),@md date,@ed date,@price int
+ as 
+ update Inventory set Product_name=@name ,Product_info=@info,Product_MD=@md,Product_ED=@ed,Product_price=@price where Product_id=@id
+
+------------------------Inventory table---------------------------------
+
+USE [test]
+GO
+
+/****** Object:  Table [dbo].[Inventory]    Script Date: 02-10-2021 22:50:44 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Inventory](
+	[Product_id] [int] NOT NULL,
+	[Product_name] [varchar](20) NULL,
+	[Product_info] [varchar](50) NULL,
+	[Product_MD] [date] NOT NULL,
+	[Product_ED] [date] NOT NULL,
+	[Product_price] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Product_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[Product_name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+
+
+
